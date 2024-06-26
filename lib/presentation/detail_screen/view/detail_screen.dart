@@ -30,94 +30,96 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Consumer<NewsDetailsController>(builder: (context, controller, _) {
-        return controller.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : Stack(
-                children: [
-                  Container(
-                    height: size.height * .5,
-                    decoration: BoxDecoration(
-                        color: ColorConstants.grey,
-                        image: DecorationImage(
-                            image: NetworkImage(controller.newsDetailsModel.data
-                                    ?.data?.featuredImage?.filePath ??
-                                ""),
-                            fit: BoxFit.cover)),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: size.height * .56,
-                      width: size.width,
+      body: Consumer<NewsDetailsController>(
+        builder: (context, controller, _) {
+          return controller.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Stack(
+                  children: [
+                    Container(
+                      height: size.height * .5,
                       decoration: BoxDecoration(
-                          color: ColorConstants.white,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(24),
-                              topRight: Radius.circular(24))),
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 20, right: 20, top: 75),
-                        child: SingleChildScrollView(
-                          child: Text(
-                            textAlign: TextAlign.justify,
-                            controller
-                                    .newsDetailsModel.data?.data?.topContent ??
-                                "",
-                            style: GLTextStyles.nunitoStyle(
-                                size: 14,
-                                color: ColorConstants.maroon,
-                                weight: FontWeight.w600),
+                          color: ColorConstants.grey,
+                          image: DecorationImage(
+                              image: NetworkImage(controller.newsDetailsModel
+                                      .data?.data?.featuredImage?.filePath ??
+                                  ""),
+                              fit: BoxFit.cover)),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: size.height * .56,
+                        width: size.width,
+                        decoration: BoxDecoration(
+                            color: ColorConstants.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(24),
+                                topRight: Radius.circular(24))),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 75),
+                          child: SingleChildScrollView(
+                            child: Text(
+                              textAlign: TextAlign.justify,
+                              controller.newsDetailsModel.data?.data
+                                      ?.topContent ??
+                                  "",
+                              style: GLTextStyles.nunitoStyle(
+                                  size: 14,
+                                  color: ColorConstants.maroon,
+                                  weight: FontWeight.w600),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: size.height*.34,
-                    left:size.width*.1,
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      height: size.height * .20,
-                      width: size.width * .8,
-                      decoration: const BoxDecoration(
-                          color: Colors.white70,
-                          borderRadius: BorderRadius.all(Radius.circular(16))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                              DateFormat('dd/MM/yyyy')
-                                  .format(controller.newsDetailsModel.data?.data
-                                          ?.publishedOn ??
-                                      DateTime.now())
-                                  .toString(),
-                              style: GLTextStyles.nunitoStyle(
-                                  size: 12,
-                                  color: ColorConstants.maroon,
-                                  weight: FontWeight.w600)),
-                          Text(
-                              controller.newsDetailsModel.data?.data
-                                      ?.browserTitle ??
-                                  "",
-                              style: GLTextStyles.loraStyle(
-                                  size: 18,
-                                  color: ColorConstants.maroon,
-                                  weight: FontWeight.w800)),
-                          // Text(
-                          //     controller.newsDetailsModel.data?.data
-                          //             ?.publishedBy ??
-                          //         "",
-                          //     style: GLTextStyles.nunitoStyle(
-                          //         size: 12,
-                          //         color: ColorConstants.maroon,
-                          //         weight: FontWeight.w600)),
-                        ],
+                    Positioned(
+                      top: size.height * .34,
+                      left: size.width * .1,
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        height: size.height * .20,
+                        width: size.width * .8,
+                        decoration: const BoxDecoration(
+                            color: Colors.white70,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                                DateFormat('dd/MM/yyyy')
+                                    .format(controller.newsDetailsModel.data
+                                            ?.data?.publishedOn ??
+                                        DateTime.now())
+                                    .toString(),
+                                style: GLTextStyles.nunitoStyle(
+                                    size: 12,
+                                    color: ColorConstants.maroon,
+                                    weight: FontWeight.w600)),
+                            Text(
+                                controller.newsDetailsModel.data?.data
+                                        ?.browserTitle ??
+                                    "",
+                                style: GLTextStyles.loraStyle(
+                                    size: 18,
+                                    color: ColorConstants.maroon,
+                                    weight: FontWeight.w800)),
+                            // Text(
+                            //     controller.newsDetailsModel.data?.data
+                            //             ?.publishedBy ??
+                            //         "",
+                            //     style: GLTextStyles.nunitoStyle(
+                            //         size: 12,
+                            //         color: ColorConstants.maroon,
+                            //         weight: FontWeight.w600)),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
+                    Positioned(
                       top: 24,
                       left: 20,
                       child: Container(
@@ -129,18 +131,21 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4),
                           child: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back_ios,
-                                size: 20,
-                              )),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
+                              size: 20,
+                            ),
+                          ),
                         ),
-                      ))
-                ],
-              );
-      }),
+                      ),
+                    )
+                  ],
+                );
+        },
+      ),
       floatingActionButton: Container(
         decoration: BoxDecoration(
             shape: BoxShape.circle,
