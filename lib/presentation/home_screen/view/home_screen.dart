@@ -51,108 +51,114 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 10),
         ],
       ),
-      body: Consumer<NewsController>(builder: (context, controller, _) {
-        if (controller.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
+      body: Consumer<NewsController>(
+        builder: (context, controller, _) {
+          if (controller.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-        final newsList = controller.newsModel.data?.data ?? [];
+          final newsList = controller.newsModel.data?.data ?? [];
 
-        return ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          children: [
-            // Slider to display articles
-            CarouselSlider(
-              options: CarouselOptions(
-                height: size.height*.30,
-                autoPlay: true,
-                padEnds: false,
-                enlargeCenterPage: true,
-                aspectRatio: 16 / 9,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                viewportFraction: 0.85,
-              ),
-              items: List.generate(3, (index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(controller
-                                  .newsModel
-                                  .data
-                                  ?.data?[index]
-                                  .category
-                                  ?.featuredImage
-                                  ?.filePath ??
-                              AppConfig.noImage),
-                          fit: BoxFit.cover),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "by ${controller.newsModel.data?.data?[index].publishedBy?.name ?? "Unknown"}",
-                            style: GLTextStyles.nunitoStyle(
-                                size: 10,
-                                weight: FontWeight.w700,
-                                color: ColorConstants.white),
+          return ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            children: [
+              // Slider to display articles
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: size.height * .30,
+                  autoPlay: true,
+                  padEnds: false,
+                  enlargeCenterPage: true,
+                  aspectRatio: 16 / 9,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enableInfiniteScroll: true,
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  viewportFraction: 0.85,
+                ),
+                items: List.generate(
+                  3,
+                  (index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        width: size.width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(controller
+                                      .newsModel
+                                      .data
+                                      ?.data?[index]
+                                      .category
+                                      ?.featuredImage
+                                      ?.filePath ??
+                                  AppConfig.noImage),
+                              fit: BoxFit.cover),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "by ${controller.newsModel.data?.data?[index].publishedBy?.name ?? "Unknown"}",
+                                style: GLTextStyles.nunitoStyle(
+                                    size: 10,
+                                    weight: FontWeight.w700,
+                                    color: ColorConstants.white),
+                              ),
+                              Text(
+                                controller.newsModel.data?.data?[index].name ??
+                                    "",
+                                style: GLTextStyles.loraStyle(
+                                    size: 16,
+                                    weight: FontWeight.w700,
+                                    color: ColorConstants.white),
+                              ),
+                            ],
                           ),
-                          Text(
-                            controller.newsModel.data?.data?[index].name ?? "",
-                            style: GLTextStyles.loraStyle(
-                                size: 16,
-                                weight: FontWeight.w700,
-                                color: ColorConstants.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }),
-            ),
-            const SizedBox(height: 15),
-            // List of news articles
-            ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                final newsItem = newsList[index];
-                return InkWell(
-                  // Navigate to News Detail Screen
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewsDetailScreen(
-                          slug: newsItem.slug ?? "",
                         ),
                       ),
                     );
                   },
-                  child: NewsCard(
-                    name: newsItem.name ?? "",
-                    imageUrl: newsItem.category?.featuredImage?.filePath ??
-                        AppConfig.noImage,
-                    publishedBy: newsItem.publishedBy?.name ?? "",
-                    publishedOn: newsItem.publishedOn ?? DateTime.now(),
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) =>
-                  const Divider(height: 10, thickness: 0.1),
-              itemCount: newsList.length,
-            ),
-          ],
-        );
-      }),
+                ),
+              ),
+              const SizedBox(height: 15),
+              // List of news articles
+              ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final newsItem = newsList[index];
+                  return InkWell(
+                    // Navigate to News Detail Screen
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewsDetailScreen(
+                            slug: newsItem.slug ?? "",
+                          ),
+                        ),
+                      );
+                    },
+                    child: NewsCard(
+                      name: newsItem.name ?? "",
+                      imageUrl: newsItem.category?.featuredImage?.filePath ??
+                          AppConfig.noImage,
+                      publishedBy: newsItem.publishedBy?.name ?? "",
+                      publishedOn: newsItem.publishedOn ?? DateTime.now(),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    const Divider(height: 10, thickness: 0.1),
+                itemCount: newsList.length,
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
