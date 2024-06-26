@@ -36,44 +36,47 @@ class _BottomNavBarState extends State<BottomNavBar> {
         },
       ),
       bottomNavigationBar: Consumer<BottomNavigationController>(
-          builder: (context, controller, _) {
-        return Theme(
-          data: ThemeData(splashColor: Colors.transparent),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 25),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(42),
-              child: SizedBox(
-                height: size.width*.18,
-                child: BottomNavigationBar(
+        builder: (context, controller, _) {
+          return Theme(
+            data: ThemeData(splashColor: Colors.transparent),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 25),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(42),
+                child: SizedBox(
+                  height: size.width * .18,
+                  child: BottomNavigationBar(
                     selectedItemColor: const Color(0xffFF8086),
                     unselectedItemColor: ColorConstants.grey,
                     selectedLabelStyle: GLTextStyles.nunitoStyle(
-                      color: ColorConstants.maroon,size: 10
-                    ),
+                        color: ColorConstants.maroon, size: 10),
                     unselectedLabelStyle: GLTextStyles.nunitoStyle(
-                        color: ColorConstants.grey,size: 10
-                    ),
+                        color: ColorConstants.grey, size: 10),
                     backgroundColor: ColorConstants.white,
-                    currentIndex: Provider.of<BottomNavigationController>(context)
-                        .selectedIndex,
+                    currentIndex:
+                        Provider.of<BottomNavigationController>(context)
+                            .selectedIndex,
                     onTap: (index) => setState(() {
-                          controller.selectedIndex = index;
-                        }),
+                      controller.selectedIndex = index;
+                    }),
                     elevation: 0,
                     items: const [
                       BottomNavigationBarItem(
                           icon: Icon(Icons.home_outlined), label: 'Home'),
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.favorite_outline), label: 'Favourite'),
+                          icon: Icon(Icons.favorite_outline),
+                          label: 'Favourite'),
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.perm_identity_sharp), label: 'Profile'),
-                    ]),
+                          icon: Icon(Icons.perm_identity_sharp),
+                          label: 'Profile'),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }
