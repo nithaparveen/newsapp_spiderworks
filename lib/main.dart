@@ -12,7 +12,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => NewsController()),
       ChangeNotifierProvider(create: (context) => NewsDetailsController()),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BottomNavBar(),
     );
