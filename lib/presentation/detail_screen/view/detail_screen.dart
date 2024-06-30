@@ -39,12 +39,13 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     Container(
                       height: size.height * .5,
                       decoration: BoxDecoration(
-                          color: ColorConstants.grey,
-                          image: DecorationImage(
-                              image: NetworkImage(controller.newsDetailsModel
-                                      .data?.data?.featuredImage?.filePath ??
-                                  ""),
-                              fit: BoxFit.cover)),
+                        color: ColorConstants.grey,
+                        image: DecorationImage(
+                            image: NetworkImage(controller.newsDetailsModel.data
+                                    ?.data?.featuredImage?.filePath ??
+                                ""),
+                            fit: BoxFit.cover),
+                      ),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -52,10 +53,11 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                         height: size.height * .56,
                         width: size.width,
                         decoration: BoxDecoration(
-                            color: ColorConstants.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(24),
-                                topRight: Radius.circular(24))),
+                          color: ColorConstants.white,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24)),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, top: 75),
@@ -141,18 +143,19 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 );
         },
       ),
       floatingActionButton: Container(
         decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomCenter,
-                colors: [ColorConstants.red, ColorConstants.pink])),
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomCenter,
+              colors: [ColorConstants.red, ColorConstants.pink]),
+        ),
         child: FloatingActionButton(
           elevation: 0,
           shape: const CircleBorder(),
